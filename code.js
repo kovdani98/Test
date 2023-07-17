@@ -1,11 +1,18 @@
+let cart = [];
+
+
 function addItemToCart(data) {
-  console.log(data);
+  cart.push(data);
+  updateCartLength();
+}
+function updateCartLength() {
+  const cartElement = document.getElementById("cart");
+  cartElement.textContent = "("+cart.length.toString()+")";
 }
 function percentage(num, per) {
   return (num / 100) * per;
 }
 window.addEventListener("load", async () => {
-
   const test = document.getElementById("test");
 
   try {
@@ -13,9 +20,9 @@ window.addEventListener("load", async () => {
     if (!res.ok) {
       throw new Error("Unable to fetch data");
     }
-    
+
     const data = await res.json();
-    
+
     for (const key in data) {
       const parsedData = data[key];
       displayDetail(parsedData);
@@ -26,13 +33,16 @@ window.addEventListener("load", async () => {
         <div class="products" id="${parsedData.ID}">
         <img src="img/${parsedData.ID}.webp" width="200px" height="350px"></img>
         <h2>${parsedData.DESC}</h2>
-        <h3 id="price">${Number(parsedData.PRICE) + percentage(parsedData.PRICE, 10)} Ft</h3>
+        <h3 id="price">${
+          Number(parsedData.PRICE) + percentage(parsedData.PRICE, 10)
+        } Ft</h3>
         <h4>Készleten: ${parsedData.QUANTITY} db</h4>
-        <button id="addCart" onclick="addItemToCart(${parsedData.ID})" >Add to Cart</button>
+        <button id="addCart" onclick="addItemToCart(${
+          parsedData.ID
+        })" >Add to Cart</button>
         </div>
   `;
     }
- 
   } catch (err) {
     console.log(err);
   }

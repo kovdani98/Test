@@ -27,7 +27,7 @@ html {
 }
 
 #price {
-  color: #4CAF50;
+  color: #00ff08;
   font-weight: bold;
 }
 
@@ -60,4 +60,9 @@ header {
 }
 body {
   margin: 0;
+}
+header #cart {
+position: absolute;
+top: 10px;
+right: 20px;
 }
